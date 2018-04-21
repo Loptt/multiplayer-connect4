@@ -7,14 +7,14 @@
 int main(int argc, char* args[])
 {
     int pipefifo, returnval;
-    char buffer[2];
+    char buffer[1];
 
-    for (int i = 0; i < 2; ++i)
+    returnval = mkfifo("/tmp/myfifo", 0666);
+
+    for (int i = 0; i < 1; ++i)
     {
         buffer[i] = args[1][i];
     }
-
-    returnval = mkfifo("/tmp/myfifo", 0666);
 
     pipefifo = open("/tmp/myfifo", O_WRONLY);
     if (pipefifo == -1)

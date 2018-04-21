@@ -25,6 +25,15 @@ class Server:
 
 	def handle_connection(self, conn, conn_address, conn_number):
 
+		player_number = 0
+
+		if len(self.connections) < 2:
+			player_number = 1
+		else:
+			player_number = 2
+
+		conn.sendall(str(player_number).encode())
+
 		while True:
 
 			#Recieve data from one connection
@@ -116,7 +125,6 @@ class Server:
 			thread = threading.Thread(target=self.handle_connection, args=(conn,conn_address,len(self.connections)))
 			thread.daemon = True
 			thread.start()
-
 
 			self.connections.append(conn)
 			self.conn_addresses.append(str(conn_address[0]) + ":" + str(conn_address[1]))
